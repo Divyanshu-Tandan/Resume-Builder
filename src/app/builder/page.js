@@ -14,11 +14,10 @@ export default function Builder() {
   const searchParams = useSearchParams();
   const [selectedTemplate, setSelectedTemplate] = useState('modern');
     useEffect(() => {
-    const templateParam = searchParams.get('template');
-    if (templateParam) {
-      setSelectedTemplate(templateParam);
-    }
-  }, [searchParams]);
+    const params = new URLSearchParams(window.location.search);
+    const template = params.get('template');
+    if (template) setSelectedTemplate(template);
+  }, []);
 
 
   const [resumeData, setResumeData] = useState({
