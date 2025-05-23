@@ -74,7 +74,7 @@ const JobPortalTestimonials = () => {
               <div className="absolute bottom-8 right-8 hidden lg:flex space-x-1">
                 <button
                   onClick={prevTestimonial}
-                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-l-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
+                    className="bg-white bg-opacity-20 hover:bg-opacity-30 text-red-500 rounded-l-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
                 >
                   <svg
                     className="w-5 h-5"
@@ -92,7 +92,7 @@ const JobPortalTestimonials = () => {
                 </button>
                 <button
                   onClick={nextTestimonial}
-                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-r-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
+                    className="bg-white bg-opacity-20 hover:bg-opacity-30 text-red-500 rounded-r-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
                 >
                   <svg
                     className="w-5 h-5"
