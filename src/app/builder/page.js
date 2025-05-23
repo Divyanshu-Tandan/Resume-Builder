@@ -1,9 +1,10 @@
 import React, { Suspense } from 'react';
 import Builder from '@/component/Builder';
+import ResumeBuilderSkeleton from '@/component/ResumeBuilderSkeleton';
 
 export default function Page() {
   return (
-    <Suspense fallback={<h1>Loading builder...</h1>}>
+    <Suspense fallback={<ResumeBuilderSkeleton/>}>
       <Builder />
     </Suspense>
   );
