@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 "use client";
 
 import { useRef } from 'react';
@@ -23,6 +14,51 @@ import Functional from './templates/Functional';
 import Simple from './templates/Simple';
 import Stylish from './templates/Stylish';
 import Iconic from './templates/Iconic';
+import Revelent from './templates/Revelent';
+import Composit from './templates/Composit';
+import Chronological from './templates/Chronological';
+import Federal from './templates/Federal';
+import Pheonix from './templates/Pheonix';
+import Cool from './templates/Cool';
+// import Horizon from './templates/Horizon';
+import Gullible from './templates/Gullible';
+import Deligant from './templates/Deligant';
+import Executive from './templates/Functional';
+import Premium from './templates/Premium';
+import Everest from './templates/Everest';
+import PaginatedTemplate from './templates/PaginatedTemplate';
+import Chronic from './templates/Chronic';
+import Chronicles from './templates/Chronicles';
+import Tokyo from './templates/Tokyo';
+import Stockholm from './templates/Stockholm'
+import Milano from './templates/Milano';
+import Vienna from './templates/Vienna';
+import Kyoto from './templates/Kyoto';
+import Berlin from './templates/Berlin';
+import Fancy from './templates/Fancy';
+import MountFuji from './templates/MountFuji';
+import Asthetic from './templates/Asthetic';
+import Minimal from './templates/Minimal';
+import Phoenix from './templates/Phoen';
+import Philips from './templates/Philips';
+import Crisp from './templates/Crisp';
+import Clean from './templates/Clean';
+import Parallel from './templates/Parallel';
+import Zinc from './templates/Zinc';
+import Nexus from './templates/Nexus';
+import Star from './templates/Star';
+import Nova from './templates/Nova';
+import Santino from './templates/Santino';
+import TwoColumn from './templates/TwoColumn';
+import Timeline from './templates/Timeline';
+import Tempo from './templates/Tempo';
+import Sample from './templates/Sample';
+
+
+
+
+
+
 
 export default function ResumePreview({ resumeData, selectedTemplate }) {
   const resumeRef = useRef(null);
@@ -186,6 +222,86 @@ const ensureHttps = (url) => {
         return <Stylish resumeData={resumeData} />;
       case 'iconic':
         return <Iconic resumeData={resumeData} />;
+      case 'revelent':
+        return <Revelent resumeData={resumeData} />;
+      case 'composit':
+        return <Composit resumeData={resumeData} />;
+      case 'chronological':
+        return <Chronological resumeData={resumeData} />;
+      case 'federal':
+        return <Federal resumeData={resumeData} />;
+      case 'pheonix':
+        return <Pheonix resumeData={resumeData} />;
+      case 'cool':
+        return <Cool resumeData={resumeData} />;
+      // case 'horizon':
+      //   return <Horizon resumeData={resumeData} />;
+      case 'gullible':
+        return <Gullible resumeData={resumeData} />;
+      case 'deligant':
+        return <Deligant resumeData={resumeData} />;
+      case 'executive':
+        return <Executive resumeData={resumeData} />;
+      case 'premium':
+        return <Premium resumeData={resumeData} />;
+      case 'everest':
+        return <Everest resumeData={resumeData} />;
+      case 'paginated':
+        return <PaginatedTemplate resumeData={resumeData} />;
+        case 'chronic':
+        return <Chronic resumeData={resumeData} />;
+        case 'chronicles':
+        return <Chronicles resumeData={resumeData} />;
+        case 'tokyo':
+        return <Tokyo resumeData={resumeData} />;
+        case 'stockholm':
+        return <Stockholm resumeData={resumeData} />;
+        case 'milano':
+        return <Milano resumeData={resumeData} />;
+        case 'vienna':
+        return <Vienna resumeData={resumeData} />;
+        case 'kyoto':
+        return <Kyoto resumeData={resumeData} />;
+        case 'berlin':
+        return <Berlin resumeData={resumeData} />;
+        case 'fancy':
+        return <Fancy resumeData={resumeData} />;
+        case 'mountfuji':
+        return <MountFuji resumeData={resumeData} />;
+        case 'asthetic':
+        return <Asthetic resumeData={resumeData} />;
+        case 'minimal':
+        return <Minimal resumeData={resumeData} />;
+        case 'phoenix':
+        return <Phoenix resumeData={resumeData} />;
+        case 'philips':
+        return <Philips resumeData={resumeData} />;
+        case 'crisp':
+        return <Crisp resumeData={resumeData} />;
+        case 'clean':
+        return <Clean resumeData={resumeData} />;
+        case 'parallel':
+        return <Parallel resumeData={resumeData} />;
+        case 'zinc':
+        return <Zinc resumeData={resumeData} />;
+        case 'nexus':
+        return <Nexus resumeData={resumeData} />;
+        case 'star':
+        return <Star resumeData={resumeData} />;
+        case 'nova':
+        return <Nova resumeData={resumeData} />;
+        case 'santino':
+        return <Santino resumeData={resumeData} />;
+        case 'twocolumn':
+        return <TwoColumn resumeData={resumeData} />;
+        case 'timeline':
+        return <Timeline resumeData={resumeData} />;
+        case 'tempo':
+        return <Tempo resumeData={resumeData} />;
+        case 'sample':
+        return <Sample resumeData={resumeData} />;
+       
+     
       default:
         return <Modern resumeData={resumeData} />;
     }
