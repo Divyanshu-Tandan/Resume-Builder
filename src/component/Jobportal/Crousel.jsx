@@ -1,297 +1,269 @@
 
-'use client'
-import { useState, useEffect, useCallback, useRef } from 'react';
+"use client";
+import React, { useState } from "react";
 
-export default function Carousel({ autoPlayInterval = 5000, showIndicators = true }) {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const slideContainerRef = useRef(null);
-  const resizeTimerRef = useRef(null);
+const JobPortalTestimonials = () => {
+  const [activeTestimonial, setActiveTestimonial] = useState(2);
 
-  // Review-related items
-  const reviewItems = [
+  const testimonials = [
     {
-      image: "/job/person1.jpg",
+      id: 1,
+      content:
+        "This job portal revolutionized our hiring process. We found exceptional talent faster than ever before. The quality of candidates and the streamlined application process made recruitment effortless. Highly recommend for any company looking to scale their team efficiently.",
       name: "Sarah Johnson",
-      position: "Marketing Director",
-      company: "Global Media Inc.",
-      review: "This platform helped me find the perfect role in just two weeks! The matching algorithm is incredibly accurate.",
-      rating: 5
+      position: "HR Director, TechCorp Solutions",
+      initials: "SJ",
     },
     {
-      image: "/job/person2.jpg",
-      name: "Sarela Lorem",
-      position: "Software Engineer",
-      company: "TechSoft Solutions",
-      review: "After struggling with other job sites, I found my dream developer position through this platform. The process was seamless.",
-      rating: 5
+      id: 2,
+      content:
+        "As a hiring manager, I've used many platforms, but this one stands out. The advanced filtering options and candidate matching algorithm saved us countless hours. We hired three amazing developers within two weeks of posting our jobs.",
+      name: "Michael Chen",
+      position: "Engineering Manager, StartupXYZ",
+      initials: "MC",
     },
     {
-      image: "/job/person3.jpg",
-      name: "Priya Patel",
-      position: "UX Designer",
-      company: "Creative Works",
-      review: "The quality of job listings is outstanding. I connected with employers who truly valued my skills and experience.",
-      rating: 4
+      id: 3,
+      content:
+        "The user experience is outstanding for both employers and candidates. Our job postings get high-quality applications, and the built-in communication tools make coordinating interviews seamless. A game-changer for modern recruitment.",
+      name: "Emily Rodriguez",
+      position: "Talent Acquisition Lead, Global Ventures",
+      initials: "ER",
     },
-    {
-      image: "/job/person4.jpg",
-      name: "Emily Clark",
-      position: "Finance Analyst",
-      company: "Capital Investments",
-      review: "The salary insights feature helped me negotiate a better offer. I'm earning 15% more than I expected!",
-      rating: 5
-    },
-    {
-      image: "/job/person5.jpg",
-      name: "Shane Watson",
-      position: "Project Manager",
-      company: "Innovative Systems",
-      review: "The resume builder tool transformed my application. I started getting callbacks immediately after using it.",
-      rating: 4
-    },
-    {
-      image: "/job/person6.jpg",
-      name: "James Wilson",
-      position: "Sales Director",
-      company: "Growth Enterprises",
-      review: "I've recommended this platform to everyone in my network. It's simply the best job search experience available.",
-      rating: 5
-    },
-    {
-      image: "/job/person7.jpg",
-      name: "Alester Martinez",
-      position: "HR Manager",
-      company: "People First Co.",
-      review: "As a recruiter, I've found exceptional talent through this platform. The candidate matching is spot on.",
-      rating: 5
-    }
   ];
 
-  // For infinite scrolling, we create a carousel with repeated items
-  const infiniteReviewItems = [...reviewItems, ...reviewItems, ...reviewItems];
-  
-  // Responsive calculation of visible cards
-  const [visibleCards, setVisibleCards] = useState(3);
-  const totalItems = reviewItems.length;
-  
-  // Update visible cards based on screen width
-  const updateVisibleCards = useCallback(() => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth < 768) {
-        setVisibleCards(1);
-      } else if (window.innerWidth < 1024) {
-        setVisibleCards(2);
-      } else {
-        setVisibleCards(3);
-      }
-    }
-  }, []);
-  
-  // Handle resize events with debouncing
-  useEffect(() => {
-    updateVisibleCards();
-    
-    const handleResize = () => {
-      if (resizeTimerRef.current) {
-        clearTimeout(resizeTimerRef.current);
-      }
-      resizeTimerRef.current = setTimeout(() => {
-        updateVisibleCards();
-      }, 250);
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => {
-      if (resizeTimerRef.current) {
-        clearTimeout(resizeTimerRef.current);
-      }
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [updateVisibleCards]);
-  
-  // Generate star rating JSX
-  const renderStars = useCallback((rating) => {
-    return Array.from({ length: 5 }).map((_, i) => (
-      <svg 
-        key={i} 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 24 24" 
-        fill={i < rating ? "currentColor" : "none"} 
-        stroke="currentColor"
-        className={`w-4 h-4 ${i < rating ? "text-yellow-400" : "text-gray-300"}`}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={i < rating ? 0 : 1} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-      </svg>
-    ));
-  }, []);
-  
-  // More stable slide navigation with clear transition states
-  const nextSlide = useCallback(() => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    setActiveIndex(prevIndex => (prevIndex + 1) % totalItems);
-    
-    const timer = setTimeout(() => {
-      setIsTransitioning(false);
-    }, 800);
-    
-    return () => clearTimeout(timer);
-  }, [isTransitioning, totalItems]);
+  const nextTestimonial = () => {
+    setActiveTestimonial(activeTestimonial >= 3 ? 1 : activeTestimonial + 1);
+  };
 
-  const prevSlide = useCallback(() => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    setActiveIndex(prevIndex => (prevIndex - 1 + totalItems) % totalItems);
-    
-    const timer = setTimeout(() => {
-      setIsTransitioning(false);
-    }, 800);
-    
-    return () => clearTimeout(timer);
-  }, [isTransitioning, totalItems]);
-
-  const goToSlide = useCallback((index) => {
-    if (isTransitioning) return;
-    setActiveIndex(index);
-  }, [isTransitioning]);
-
-  // Improved autoplay with proper cleanup
-  useEffect(() => {
-    let interval;
-    
-    if (!isHovering && autoPlayInterval > 0) {
-      interval = setInterval(() => {
-        nextSlide();
-      }, autoPlayInterval);
-    }
-    
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [nextSlide, isHovering, autoPlayInterval]);
+  const prevTestimonial = () => {
+    setActiveTestimonial(activeTestimonial === 1 ? 3 : activeTestimonial - 1);
+  };
 
   return (
-    <div className="mt-16 mb-20 bg-gray-50 py-12 px-4">
-      <h2 className="text-3xl font-bold text-center mb-2">What Our Users Say</h2>
-      <p className="text-center text-gray-600 mb-10">Thousands of professionals have found their dream jobs using our platform</p>
-      
-      <div 
-        className="relative w-full px-8 py-4 overflow-hidden"
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
-        {/* Slides container with smooth 360-degree infinite scrolling */}
-        <div 
-          ref={slideContainerRef}
-          className="flex transition-transform duration-800 ease-out"
-          style={{ transform: `translateX(-${(activeIndex + totalItems) * (100 / visibleCards)}%)` }}
-        >
-          {infiniteReviewItems.map((item, index) => (
-            <div 
-              key={index} 
-              className={`px-2 pt-14 mt-6 ${
-                visibleCards === 1 
-                  ? 'min-w-full' 
-                  : visibleCards === 2 
-                    ? 'min-w-[calc(100%/2-1rem)]' 
-                    : 'min-w-[calc(100%/3-1rem)]'
-              }`}
-              style={{ 
-                transform: isTransitioning ? 'scale(0.98)' : 'scale(1)',
-                transition: 'transform 0.3s ease-out'
-              }}
-            >
-              {/* Reviewer image positioned at the left corner above the card */}
-              <div className="flex justify-start ml-5 mb-[-40px] relative z-10">
-                <div className="h-24 w-24 overflow-hidden border-4 border-white shadow-lg bg-gray-100 flex items-center justify-center">
-                  <img 
-                    src={item.image || "/Jobportal/default-avatar.jpg"}
-                    alt={item.name}
-                    loading="lazy"
-                    className="h-full w-full object-cover object-center"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "/Jobportal/default-avatar.jpg";
-                    }}
-                  />
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            {/* Left Section - Header */}
+            <div className="relative bg-gradient-to-br from-red-600 to-red-800 px-8 py-16 lg:py-24 flex flex-col justify-center">
+              {/* Decorative Grid Pattern */}
+              <div className="absolute top-0 left-0 w-32 h-32 opacity-10">
+                <div className="grid grid-cols-4 gap-1 w-full h-full">
+                  {Array.from({ length: 16 }).map((_, i) => (
+                    <div key={i} className="bg-white rounded-sm"></div>
+                  ))}
                 </div>
               </div>
-              
-              <div className="bg-white rounded-xl border border-gray-200 shadow-md h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] pt-16 px-5 pb-5">
-                {/* Name and position - aligned to match the image position */}
-                <div className="mb-4 text-left pl-16">
-                  <h4 className="font-bold text-lg text-gray-800">{item.name}</h4>
-                  <p className="text-xs text-gray-500">{item.position}, {item.company}</p>
-                </div>
 
-                {/* Review content */}
-                <div className="flex-1 flex flex-col">
-                  {/* Quote icon */}
-                  <div className="text-red-500 mb-2 text-left">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="opacity-40">
-                      <path d="M11.192 15.757c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16.036-.33.084-.507.145l.138-1.173c.027-.231.05-.463.07-.698.083-.94.148-1.793.196-2.563.048-.77.067-1.608.056-2.512-.01-.573-.093-1.073-.25-1.502-.143-.39-.364-.724-.66-1-.9-.846-2.043-1.262-3.43-1.248-.72.004-1.173.174-1.363.51-.128.23-.18.466-.156.706l.064.67c.037.376.1.743.193 1.1.094.355.23.748.407 1.182.176.433.39.895.64 1.387s.55 1.013.9 1.558c.347.544.648 1.01.9 1.397.26.387.47.726.63 1.02.16.292.31.582.45.868.13.287.23.505.29.658l.13.324-.27.12c-.93.413-1.68.986-2.236 1.72-.557.733-.84 1.558-.848 2.474-.007.87.277 1.605.85 2.202.573.598 1.282.896 2.126.896 1.487 0 2.676-.643 3.567-1.93.89-1.29 1.34-2.95 1.34-4.994zm11.15 0c0-.88-.23-1.618-.69-2.217-.326-.412-.768-.683-1.327-.812-.55-.128-1.07-.137-1.54-.028-.16.036-.33.084-.507.145l.138-1.173c.027-.231.05-.463.07-.698.083-.94.148-1.793.196-2.563.048-.77.067-1.608.056-2.512-.01-.573-.093-1.073-.25-1.502-.143-.39-.364-.724-.66-1-.9-.846-2.043-1.262-3.43-1.248-.72.004-1.173.174-1.363.51-.128.23-.18.466-.156.706l.064.67c.037.376.1.743.193 1.1.094.355.23.748.407 1.182.176.433.39.895.64 1.387s.55 1.013.9 1.558c.347.544.648 1.01.9 1.397.26.387.47.726.63 1.02.16.292.31.582.45.868.13.287.23.505.29.658l.13.324-.27.12c-.93.413-1.68.986-2.236 1.72-.557.733-.84 1.558-.848 2.474-.007.87.277 1.605.85 2.202.573.598 1.282.896 2.126.896 1.487 0 2.676-.643 3.567-1.93.89-1.29 1.34-2.95 1.34-4.994z" />
-                    </svg>
-                  </div>
-                  
-                  {/* Review text */}
-                  <p className="text-gray-700 mb-5 italic flex-1">{item.review}</p>
-                  
-                  {/* Star rating */}
-                  <div className="flex justify-start mt-auto">
-                    {renderStars(item.rating)}
-                  </div>
+              <div className="relative z-10 text-center lg:text-left">
+                <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                  <span className="block">What Our</span>
+                  <span className="block">Employers</span>
+                  <span className="block text-red-200">Are Saying!</span>
+                </h1>
+
+                <div className="hidden lg:block mt-12">
+                  <p className="text-red-100 text-lg mb-8">
+                    Trusted by thousands of companies worldwide
+                  </p>
                 </div>
+              </div>
+
+              {/* Navigation Arrows - Desktop */}
+              <div className="absolute bottom-8 right-8 hidden lg:flex space-x-1">
+                <button
+                  onClick={prevTestimonial}
+                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-l-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={nextTestimonial}
+                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-r-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
-          ))}
+
+            {/* Right Section - Testimonials */}
+            <div className="bg-white px-8 py-16 lg:py-24 flex flex-col justify-between">
+              {/* Quote Icon */}
+              <div className=" left-8 lg:top-12 lg:left-12">
+                <svg
+                  className="w-12 h-12 lg:w-16 lg:h-16 text-red-200"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M6.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L9.758 4.03c0 0-.218.052-.597.144C8.97 4.222 8.737 4.278 8.472 4.345c-.271.05-.56.187-.882.312C7.272 4.799 6.904 4.895 6.562 5.123c-.344.218-.741.4-1.091.692C5.132 6.116 4.723 6.377 4.421 6.76c-.33.358-.656.734-.909 1.162C3.219 8.33 3.02 8.778 2.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C2.535 17.474 4.338 19 6.5 19c2.485 0 4.5-2.015 4.5-4.5S8.985 10 6.5 10zM17.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L20.758 4.03c0 0-.218.052-.597.144-.191.048-.424.104-.689.171-.271.05-.56.187-.882.312-.317.143-.686.238-1.028.467-.344.218-.741.4-1.091.692-.339.301-.748.562-1.05.944-.33.358-.656.734-.909 1.162C14.219 8.33 14.02 8.778 13.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C13.535 17.474 15.338 19 17.5 19c2.485 0 4.5-2.015 4.5-4.5S19.985 10 17.5 10z" />
+                </svg>
+              </div>
+
+              {/* Testimonial Content */}
+              <div className="flex-1 mt-12 lg:mt-0">
+                {testimonials.map((testimonial) => (
+                  <div
+                    key={testimonial.id}
+                    className={`${
+                      activeTestimonial === testimonial.id ? "block" : "hidden"
+                    } transition-all duration-500 ease-in-out`}
+                  >
+                    <blockquote className="text-xl lg:text-2xl text-gray-800 font-medium leading-relaxed italic mb-8">
+                      "{testimonial.content}"
+                    </blockquote>
+                  </div>
+                ))}
+              </div>
+
+              {/* Avatar Navigation */}
+              <div className="flex justify-center space-x-4 mb-8">
+                {testimonials.map((testimonial) => (
+                  <button
+                    key={testimonial.id}
+                    onClick={() => setActiveTestimonial(testimonial.id)}
+                    className={`${
+                      activeTestimonial === testimonial.id
+                        ? "w-16 h-16 bg-red-600 text-white opacity-100 scale-110"
+                        : "w-12 h-12 bg-gray-300 text-gray-600 opacity-75 hover:opacity-100"
+                    } rounded-full font-bold text-sm transition-all duration-300 hover:scale-105 shadow-lg flex items-center justify-center`}
+                  >
+                    {testimonial.initials}
+                  </button>
+                ))}
+              </div>
+
+              {/* Author Information */}
+              <div className="text-center">
+                {testimonials.map((testimonial) => (
+                  <div
+                    key={testimonial.id}
+                    className={`${
+                      activeTestimonial === testimonial.id ? "block" : "hidden"
+                    } transition-all duration-500`}
+                  >
+                    <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-1">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-gray-600 text-sm lg:text-base">
+                      {testimonial.position}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Mobile Navigation */}
+              <div className="flex justify-center space-x-2 mt-8 lg:hidden">
+                <button
+                  onClick={prevTestimonial}
+                  className="bg-red-600 hover:bg-red-700 text-white rounded-full w-12 h-12 flex items-center justify-center transition-colors duration-200"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={nextTestimonial}
+                  className="bg-red-600 hover:bg-red-700 text-white rounded-full w-12 h-12 flex items-center justify-center transition-colors duration-200"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        {/* Navigation buttons - improved hit area and visibility */}
-        <button 
-          className="absolute top-1/2 left-1 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2.5 shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 z-10"
-          onClick={prevSlide}
-          disabled={isTransitioning}
-          aria-label="Previous slide"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-          </svg>
-        </button>
-        <button 
-          className="absolute top-1/2 right-1 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2.5 shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 z-10"
-          onClick={nextSlide}
-          disabled={isTransitioning}
-          aria-label="Next slide"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </button>
-      </div>
-      
-      {/* Indicators - improved accessibility and interaction */}
-      {showIndicators && (
-        <div className="flex justify-center space-x-3 mt-6">
-          {Array.from({ length: totalItems }).map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              disabled={isTransitioning}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 ${
-                activeIndex === index 
-                  ? 'bg-red-600 scale-125' 
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-              aria-current={activeIndex === index ? 'true' : 'false'}
+
+        {/* Trust Indicators */}
+        <div className="mt-16 text-center">
+          <p className="text-gray-500 text-sm mb-6">
+            Trusted by leading companies worldwide
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 opacity-70">
+            {/* Company Logo 1 */}
+            <img
+              src="/job/flipkart-Logo.wine.svg"
+              alt="Google"
+              className="h-8 w-auto object-contain "
             />
-          ))}
+
+            {/* Company Logo 2 */}
+            <img
+              src="/job/Microsoft-Logo.wine.svg"
+              alt="Microsoft"
+              className="h-8 w-auto object-contain "
+            />
+
+            {/* Company Logo 3 */}
+            <img
+              src="/job/amazon_(company)-Logo.wine.svg"
+              alt="Amazon"
+              className="h-8 w-auto object-contain "
+            />
+
+            {/* Company Logo 4 */}
+            <img
+              src="/job/Airbnb-Logo.wine.svg"
+              alt="Apple"
+              className="h-8 w-auto object-contain "
+            />
+
+            {/* Company Logo 5 */}
+            <img
+              src="/job/Paytm-logo.wine.svg"
+              alt="Facebook"
+              className="h-8 w-auto object-contain "
+            />
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
-}
+};
+
+export default JobPortalTestimonials;

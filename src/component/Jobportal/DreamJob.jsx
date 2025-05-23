@@ -65,95 +65,19 @@ const DreamJob = () => {
           </div>
         </div>
 
-        {/* Companies Section */}
-        {/* <div className="mb-12">
-          <p className="text-lg font-semibold text-black mb-6">
-            <strong>Partnered with Fortune 500 companies across the globe</strong>
-          </p>
-          
-          Fixed Company Marquee
-          <div className="bg-red-50 py-4 px-4 rounded-lg">
-            <div className="overflow-hidden relative">
-              <div className="flex whitespace-nowrap animate-marquee1">
-                {companies1.map((company, index) => (
-                  <div key={`company1-${company.id}-${index}`} className="mx-4 inline-flex items-center flex-shrink-0">
-                    <div className="bg-white p-3 rounded shadow-sm border border-gray-100 h-12 flex items-center">
-                      <Image src={company.src} alt={`${company.name} logo`} height={40} width={100} className="max-h-full" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          Reverse Direction Marquee
-          <div className="bg-blue-50 py-4 px-4 rounded-lg mt-4">
-            <div className="overflow-hidden relative">
-              <div className="flex whitespace-nowrap animate-marquee3">
-                {companies2.map((company, index) => (
-                  <div key={`company2-${company.id}-${index}`} className="mx-4 inline-flex items-center flex-shrink-0">
-                    <div className="bg-white p-3 rounded shadow-sm border border-gray-100 h-12 flex items-center">
-                      <Image src={company.src} alt={`${company.name} logo`} height={40} width={100} className="max-h-full" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          Fixed Announcement Marquee
-          <div className="bg-red-600 p-3 rounded-lg text-white font-medium mt-4 overflow-hidden">
-            <div className="relative">
-              <div className="whitespace-nowrap animate-marquee2">
-                {Array(3).fill("🔥 Over 25,000 new jobs added this week! | 💼 Remote opportunities increased by 40% | 🚀 Tech sector hiring surge across all levels | ⚡ Sign up for premium access to exclusive listings").map((text, index) => (
-                  <span key={`announcement-${index}`} className="mx-4 inline-block">
-                    {text}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div> */}
-
+        
         {/* Call to Action */}
-        <div className="bg-black text-white p-8 rounded-lg mb-12 flex flex-col md:flex-row items-center justify-between">
+        <div className="bg-red-600 text-white p-8 rounded-lg mb-12 flex flex-col md:flex-row items-center justify-between">
           <div className="mb-6 md:mb-0">
             <h3 className="text-2xl font-bold mb-2">Ready to take the next step?</h3>
             <p className="text-gray-300">Create your profile and let employers find you</p>
           </div>
-          <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg">
+          <button className="bg-white hover:bg-red-300 text-black font-bold py-3 px-8 rounded-lg">
             Get Started
           </button>
         </div>
       </div>
 
-      {/* For Employers Section */}
-        <div className="bg-mint-100 w-fit mx-auto rounded-lg p-8 flex flex-col md:flex-row items-center justify-between shadow-md mb-12 border border-gray-200">
-          {/* Left Side - Image/People Section */}
-          <div className="flex items-center space-x-4 mb-6 md:mb-0 md:w-1/2">
-            <Image
-              src="/job/hire.jpg"
-              alt="Businessman"
-              width={500}
-              height={500}
-              className="object-cover rounded-lg"
-            />
-          </div>
-
-          {/* Right Side - Text Section */}
-          <div className="text-center md:text-left md:w-1/2 pl-0 md:pl-8">
-            <div className="bg-green-100 text-green-800 font-semibold px-4 py-2 rounded-full inline-block mb-4">
-              FOR EMPLOYERS
-            </div>
-            <h2 className="text-4xl lg:text-5xl font-bold text-green-900 mb-4">Looking to hire?</h2>
-            <p className="text-gray-700 mb-6 text-lg">
-              Access a talent pool of over 50 million active job seekers!
-            </p>
-            <button className="bg-red-600 hover:bg-red-700 text-white font-medium rounded flex items-center gap-2 px-8 py-3 text-base">
-              Post a Job <ArrowRight size={18} />
-            </button>
-          </div>
-        </div>
       
       {/* Updated Tailwind Animation Classes */}
       {/* <style jsx>{`
