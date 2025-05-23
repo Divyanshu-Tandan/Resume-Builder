@@ -225,7 +225,7 @@ export default function JobHero() {
               {/* Main Oval Image */}
               <div className="relative w-[300px] h-[450px] rounded-[100px] overflow-hidden shadow-lg">
                 <Image
-                  src="/Job/JH1.jpg"
+                  src="/job/JH1.jpg"
                   alt="Varun Nguyen"
                   fill
                   className="object-cover"
@@ -238,7 +238,7 @@ export default function JobHero() {
               {/* Side Images */}
               <div className="w-[130px] h-[220px] ml-2 bg-white rounded-[75px] mb-54 overflow-hidden shadow-lg">
                 <Image
-                  src="/Job/JH3.jpg"
+                  src="/job/JH3.jpg"
                   alt="Job profile"
                   width={150}
                   height={280}
@@ -247,7 +247,7 @@ export default function JobHero() {
               </div>
               <div className="w-[130px] h-[220px] ml-2 bg-white rounded-[75px] mb-54 overflow-hidden shadow-lg">
                 <Image
-                  src="/Job/JH2.jpg"
+                  src="/job/JH2.jpg"
                   alt="Job profile"
                   width={150}
                   height={280}
