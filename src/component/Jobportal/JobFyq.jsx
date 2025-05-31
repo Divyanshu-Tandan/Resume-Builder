@@ -1,6 +1,6 @@
-
 "use client";
 import { useState } from "react";
+import ScrollReveal from "../ScrollReveal";
 
 const JobFAQSection = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -63,14 +63,22 @@ const JobFAQSection = () => {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header section */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-extrabold text-black mb-2">
-            Frequently Asked <span className="text-red-600">Questions</span>
-          </h2>
-          <div className="w-24 h-1 bg-red-600 mx-auto mb-6"></div>
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-lg">
-            Get answers to common questions about finding your dream job and
-            maximizing your career potential with CareerTronic
-          </p>
+          <ScrollReveal animation="slideUp" duration={600} delay={0} easing="smooth">
+            <h2 className="text-4xl font-extrabold text-black mb-2">
+              Frequently Asked <span className="text-red-600">Questions</span>
+            </h2>
+          </ScrollReveal>
+
+          <ScrollReveal animation="fadeIn" duration={600} delay={150} easing="smooth">
+            <div className="w-24 h-1 bg-red-600 mx-auto mb-6"></div>
+          </ScrollReveal>
+
+          <ScrollReveal animation="slideUp" duration={600} delay={300} easing="smooth">
+            <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-lg">
+              Get answers to common questions about finding your dream job and
+              maximizing your career potential with CareerTronic
+            </p>
+          </ScrollReveal>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12">
@@ -78,191 +86,172 @@ const JobFAQSection = () => {
           <div className="lg:w-1/2">
             <div className="space-y-5">
               {faqs.map((faq, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300"
+                <ScrollReveal
+                  key={faq.question} // Prefer id if available
+                  animation="slideUp"
+                  duration={500}
+                  delay={index * 100} // staggered delay for nice effect
+                  easing="ease"
                 >
-                  <button
-                    className="w-full px-6 py-5 text-left font-medium flex justify-between items-center"
-                    onClick={() => toggleFAQ(index)}
-                    aria-expanded={activeIndex === index}
-                    aria-controls={`faq-${index}`}
-                  >
-                    <span className="font-bold text-gray-800 pr-8">
-                      {faq.question}
-                    </span>
-                    <div
-                      className={`flex items-center justify-center w-8 h-8 rounded-full ${
-                        activeIndex === index
-                          ? "bg-red-600 text-white"
-                          : "bg-gray-100 text-gray-500"
-                      } transition-all duration-300`}
+                  <div className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
+                    <button
+                      className="w-full px-6 py-5 text-left font-medium flex justify-between items-center"
+                      onClick={() => toggleFAQ(index)}
+                      aria-expanded={activeIndex === index}
+                      aria-controls={`faq-${index}`}
                     >
-                      {activeIndex === index ? (
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 15l7-7 7 7"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 9l-7 7-7-7"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                  </button>
+                      <span className="font-bold text-gray-800 pr-8">
+                        {faq.question}
+                      </span>
+                      <div
+                        className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                          activeIndex === index
+                            ? "bg-red-600 text-white"
+                            : "bg-gray-100 text-gray-500"
+                        } transition-all duration-300`}
+                      >
+                        {activeIndex === index ? (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M5 15l7-7 7 7"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            className="w-5 h-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                    </button>
 
-                  <div
-                    id={`faq-${index}`}
-                    className={`transition-all duration-300 ease-in-out ${
-                      activeIndex === index
-                        ? "max-h-96 opacity-100"
-                        : "max-h-0 opacity-0 overflow-hidden"
-                    }`}
-                  >
-                    <div className="px-6 py-5 bg-gray-50 border-t border-gray-100">
-                      <p className="text-gray-700">{faq.answer}</p>
+                    <div
+                      id={`faq-${index}`}
+                      className={`transition-all duration-300 ease-in-out ${
+                        activeIndex === index
+                          ? "max-h-96 opacity-100"
+                          : "max-h-0 opacity-0 overflow-hidden"
+                      }`}
+                    >
+                      <div className="px-6 py-5 bg-gray-50 border-t border-gray-100">
+                        <p className="text-gray-700">{faq.answer}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
 
             {/* Final CTA */}
-            <div className="mt-10 pt-6 border-t border-gray-200">
-              <p className="text-gray-600 text-lg">
-                Still have questions? We're here to help.
-              </p>
-              <button className="mt-4 px-8 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 shadow-md hover:shadow-lg transition-all">
-                Contact Support
-              </button>
-            </div>
+            <ScrollReveal animation="fadeInUp" duration={600} delay={faqs.length * 100} easing="ease-in-out">
+              <div className="mt-10 pt-6 border-t border-gray-200">
+                <p className="text-gray-600 text-lg">
+                  Still have questions? We're here to help.
+                </p>
+                <button className="mt-4 px-8 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 shadow-md hover:shadow-lg transition-all">
+                  Contact Support
+                </button>
+              </div>
+            </ScrollReveal>
           </div>
 
           {/* Image Section - Right Side */}
           <div className="lg:w-1/2 flex flex-col justify-center items-center space-y-10">
-            <div className="relative rounded-2xl overflow-hidden shadow-lg w-full max-w-md aspect-[4/3] border-4 border-white">
-              <img
-                src="/Jobfyq.png" // Replace with your job portal image
-                alt="CareerTronic job portal interface"
-                className="w-full h-full object-cover"
-              />
+            {/* Job Portal Image */}
+            <ScrollReveal animation="fadeInUp" duration={700} easing="ease-in-out">
+              <div className="relative rounded-2xl overflow-hidden shadow-lg w-full max-w-md aspect-[4/3] border-2 border-white">
+                <img
+                  src="/Jobfyq.png"
+                  alt="CareerTronic job portal interface"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </ScrollReveal>
 
-              
-            </div>
-
+            {/* Feature Cards Grid */}
             <div className="grid grid-cols-2 gap-5 w-full max-w-md">
-              <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-all group">
-                <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-red-100 transition-colors">
-                  <svg
-                    className="w-7 h-7 text-red-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+              {[
+                {
+                  title: "Smart Matching",
+                  desc: "Precision job recommendations",
+                  icon: (
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 className="font-bold text-black text-lg">Smart Matching</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Precision job recommendations
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-all group">
-                <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-red-100 transition-colors">
-                  <svg
-                    className="w-7 h-7 text-red-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                    />
+                  ),
+                },
+                {
+                  title: "Quick Apply",
+                  desc: "One-click applications",
+                  icon: (
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M13 10V3L4 14h7v7l9-11h-7z"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 className="font-bold text-black text-lg">Quick Apply</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  One-click applications
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-all group">
-                <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-red-100 transition-colors">
-                  <svg
-                    className="w-7 h-7 text-red-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                    />
+                  ),
+                },
+                {
+                  title: "AI Insights",
+                  desc: "Career path suggestions",
+                  icon: (
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 className="font-bold text-black text-lg">AI Insights</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Career path suggestions
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-all group">
-                <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-red-100 transition-colors">
-                  <svg
-                    className="w-7 h-7 text-red-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
+                    />
+                  ),
+                },
+                {
+                  title: "Custom Alerts",
+                  desc: "Personalized job notifications",
+                  icon: (
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth="2"
                       d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 className="font-bold text-black text-lg">Custom Alerts</h3>
-                <p className="text-sm text-gray-600 mt-1">
-                  Personalized job notifications
-                </p>
-              </div>
+                    />
+                  ),
+                },
+              ].map((item, idx) => (
+                  <div className="bg-white p-5 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center hover:shadow-lg transition-all group">
+                    <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mb-3 group-hover:bg-red-100 transition-colors">
+                      <svg
+                        className="w-7 h-7 text-red-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        {item.icon}
+                      </svg>
+                    </div>
+                    <h3 className="font-bold text-black text-lg">{item.title}</h3>
+                    <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+                  </div>
+              ))}
             </div>
           </div>
         </div>

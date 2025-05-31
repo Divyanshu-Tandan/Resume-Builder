@@ -2,10 +2,10 @@
 import { useEffect, useRef } from "react";
 
 const ANIMATIONS = {
-  slideLeft: "opacity-0 translate-x-64", // Slide from right to left
-  slideRight: "opacity-0 -translate-x-64", // Slide from left to right
-  slideDown: "opacity-0 -translate-y-64", // Slide from top to bottom
-  slideUp: "opacity-0 translate-y-64", // Slide from bottom to top
+  slideLeft: "opacity-0 translate-x-64",
+  slideRight: "opacity-0 -translate-x-64",
+  slideDown: "opacity-0 -translate-y-64",
+  slideUp: "opacity-0 translate-y-64",
   fadeSlideLeft: "opacity-0 translate-x-64 scale-95",
   fadeSlideRight: "opacity-0 -translate-x-64 scale-95",
   fadeSlideDown: "opacity-0 -translate-y-64 scale-95",
@@ -14,19 +14,17 @@ const ANIMATIONS = {
   slightRight: "opacity-0 -translate-x-16",
   slightUp: "opacity-0 translate-y-16",
   slightDown: "opacity-0 -translate-y-16",
-  fadeIn: "opacity-0 scale-95", // Simple fade in with slight scale
-  scaleUp: "opacity-0 scale-75", // Scale up animation
-  flipIn: "opacity-0 rotateX-90", // Flip in animation
-  slideBottomLeft: "opacity-0 translate-x-32 translate-y-32", // From bottom right to top left
+  fadeIn: "opacity-0 scale-95",
+  scaleUp: "opacity-0 scale-75",
+  flipIn: "opacity-0 rotateX-90",
+  slideBottomLeft: "opacity-0 translate-x-32 translate-y-32",
   slideBottomRight: "opacity-0 -translate-x-32 translate-y-32",
-  slightBottomLeft: "opacity-0 translate-x-16 translate-y-16", // From bottom right to top left
+  slightBottomLeft: "opacity-0 translate-x-16 translate-y-16",
   slightBottomRight: "opacity-0 -translate-x-16 translate-y-16",
   spinIn: "opacity-0 rotate-180 scale-90",
-  // New animations for spinning from left and right
   spinFromLeft: "opacity-0 -translate-x-64 rotate-180 scale-90",
   spinFromRight: "opacity-0 translate-x-64 rotate-180 scale-90",
   slightspinFromLeft: "opacity-0 -translate-x-16 rotate-90 scale-90",
-  // More intense spinning animations
   spinRollLeft: "opacity-0 -translate-x-64 rotate-360 scale-90",
   spinRollRight: "opacity-0 translate-x-64 rotate-360 scale-90",
 };
@@ -47,8 +45,7 @@ const ScrollReveal = ({
   easing = "smooth",
   index = 0,
   stagger = 0,
-  // Simple disable flag that will be used to disable on mobile
-  disableBelow = null, // 'sm', 'md', 'lg', etc. or null to never disable
+  disableBelow = null,
 }) => {
   const elementRef = useRef(null);
   const animationCompleted = useRef(false);
@@ -57,7 +54,7 @@ const ScrollReveal = ({
     const element = elementRef.current;
     if (!element) return;
 
-    // If disabled on mobile, check screen width
+    // Check if disabled on mobile
     let isDisabled = false;
     if (disableBelow) {
       const breakpoints = {
@@ -79,13 +76,80 @@ const ScrollReveal = ({
       return;
     }
 
-    // Handle resize to disable animations if window is resized below threshold
+    // Set initial state based on animation type - using JavaScript instead of CSS classes
+    element.style.opacity = "0";
+    element.style.transition = `all ${duration}ms ${EASINGS[easing]}`;
+    
+    // Apply initial transform based on animation type
+    switch (animation) {
+      case "slideLeft":
+        element.style.transform = "translateX(16rem)";
+        break;
+      case "slideRight":
+        element.style.transform = "translateX(-16rem)";
+        break;
+      case "slideDown":
+        element.style.transform = "translateY(-16rem)";
+        break;
+      case "slideUp":
+        element.style.transform = "translateY(16rem)";
+        break;
+      case "fadeSlideLeft":
+        element.style.transform = "translateX(16rem) scale(0.95)";
+        break;
+      case "fadeSlideRight":
+        element.style.transform = "translateX(-16rem) scale(0.95)";
+        break;
+      case "fadeSlideDown":
+        element.style.transform = "translateY(-16rem) scale(0.95)";
+        break;
+      case "fadeSlideUp":
+        element.style.transform = "translateY(16rem) scale(0.95)";
+        break;
+      case "slightLeft":
+        element.style.transform = "translateX(4rem)";
+        break;
+      case "slightRight":
+        element.style.transform = "translateX(-4rem)";
+        break;
+      case "slightUp":
+        element.style.transform = "translateY(4rem)";
+        break;
+      case "slightDown":
+        element.style.transform = "translateY(-4rem)";
+        break;
+      case "fadeIn":
+        element.style.transform = "scale(0.95)";
+        break;
+      case "scaleUp":
+        element.style.transform = "scale(0.75)";
+        break;
+      case "spinIn":
+        element.style.transform = "rotate(180deg) scale(0.9)";
+        break;
+      case "spinFromLeft":
+        element.style.transform = "translateX(-16rem) rotate(180deg) scale(0.9)";
+        break;
+      case "spinFromRight":
+        element.style.transform = "translateX(16rem) rotate(180deg) scale(0.9)";
+        break;
+      case "spinRollLeft":
+        element.style.transform = "translateX(-16rem) rotate(360deg) scale(0.9)";
+        break;
+      case "spinRollRight":
+        element.style.transform = "translateX(16rem) rotate(360deg) scale(0.9)";
+        break;
+      default:
+        element.style.transform = "translateX(4rem)";
+    }
+
+    // Handle resize
     const handleResize = () => {
       if (!disableBelow) return;
       const breakpoints = {
         sm: 640,
         md: 768,
-        lg: 1024,
+        lg: 1024,  
         xl: 1280,
         "2xl": 1536,
       };
@@ -94,35 +158,6 @@ const ScrollReveal = ({
         element.style.opacity = "1";
         element.style.transform = "none";
         element.style.transition = "none";
-      } else if (!animationCompleted.current) {
-        // Reset to initial state if not yet animated and window is resized above threshold
-        element.style.opacity = "0";
-        element.style.transition = `all ${duration}ms ${EASINGS[easing]}`;
-
-        // Apply transform based on animation type
-        if (animation === "spinFromLeft") {
-          element.style.transform =
-            "translateX(-16rem) rotate(180deg) scale(0.9)";
-        } else if (animation === "spinFromRight") {
-          element.style.transform =
-            "translateX(16rem) rotate(180deg) scale(0.9)";
-        } else if (animation === "spinRollLeft") {
-          element.style.transform =
-            "translateX(-16rem) rotate(360deg) scale(0.9)";
-        } else if (animation === "spinRollRight") {
-          element.style.transform =
-            "translateX(16rem) rotate(360deg) scale(0.9)";
-        } else if (ANIMATIONS[animation].includes("translate-x")) {
-          element.style.transform = "translateX(16rem)";
-        } else if (ANIMATIONS[animation].includes("-translate-x")) {
-          element.style.transform = "translateX(-16rem)";
-        } else if (ANIMATIONS[animation].includes("translate-y")) {
-          element.style.transform = "translateY(16rem)";
-        } else if (ANIMATIONS[animation].includes("-translate-y")) {
-          element.style.transform = "translateY(-16rem)";
-        } else if (ANIMATIONS[animation].includes("scale")) {
-          element.style.transform = "scale(0.95)";
-        }
       }
     };
 
@@ -154,14 +189,13 @@ const ScrollReveal = ({
     };
   }, [animation, delay, duration, easing, index, stagger, disableBelow]);
 
-  // We'll apply the animation classes here but handle the actual animation in JS
+  // Don't apply any CSS classes - let JavaScript handle everything
   return (
     <div
       ref={elementRef}
-      className={`${ANIMATIONS[animation]} ${className}`}
+      className={className}
       style={{
         willChange: "transform, opacity",
-        transition: `all ${duration}ms ${EASINGS[easing]}`,
       }}
     >
       {children}

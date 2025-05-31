@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ScrollReveal from "./ScrollReveal";
 
 const FAQSection = () => {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -11,7 +12,7 @@ const FAQSection = () => {
         "ResumeAce uses AI-powered technology to analyze job descriptions and optimize your resume accordingly, ensuring you highlight the most relevant skills and experiences for each position.",
     },
     {
-      question: "How to use ResumeAce Resume Creator?",
+      question: "How to use ResumeAce Resume Creator?", 
       answer:
         "Simply create an account, input your information, and our builder will guide you through creating a professional resume. You can choose from our templates and get real-time suggestions for improvement.",
     },
@@ -62,9 +63,11 @@ const FAQSection = () => {
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header section */}
         <div className="text-center mb-16">
+        <ScrollReveal animation="top" duration={1000} delay={300}>
           <h2 className="text-4xl font-extrabold text-black mb-2">
             Frequently Asked <span className="text-red-600">Questions</span>
           </h2>
+          </ScrollReveal>
           <div className="w-24 h-1 bg-red-600 mx-auto mb-6"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto text-lg">
             Get answers to common questions about optimizing your resume and
@@ -171,9 +174,7 @@ const FAQSection = () => {
                 className="w-full h-full object-cover"
               />
 
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-12 h-12 border-t-4 border-l-4 border-red-600"></div>
-              <div className="absolute bottom-0 right-0 w-12 h-12 border-b-4 border-r-4 border-red-600"></div>
+             
             </div>
 
             <div className="grid grid-cols-2 gap-5 w-full max-w-md">

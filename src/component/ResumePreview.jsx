@@ -1,64 +1,28 @@
+
+
+
+
+
+
+
+
+
 "use client";
 
 import { useRef } from 'react';
-import Modern from './Templates/Modern';
-import Professional from './Templates/Professional';
-import Creative from './Templates/Creative';
-import Elegant from './Templates/Elegant';
-import Classic from './Templates/Classic';
-import Best from './Templates/Best';
-import Traditional from './Templates/Traditional';
-import Formal from './Templates/Formal';
-import Toronto from './Templates/Toronto';
-import Functional from './Templates/Functional';
-import Simple from './Templates/Simple';
-import Stylish from './Templates/Stylish';
-import Iconic from './Templates/Iconic';
-import Revelent from './Templates/Revelent';
-import Composit from './Templates/Composit';
-import Chronological from './Templates/Chronological';
-import Federal from './Templates/Federal';
-import Pheonix from './Templates/Pheonix';
-import Cool from './Templates/Cool';
-// import Horizon from './Templates/Horizon';
-import Gullible from './Templates/Gullible';
-import Deligant from './Templates/Deligant';
-import Executive from './Templates/Functional';
-import Premium from './Templates/Premium';
-import Everest from './Templates/Everest';
-import PaginatedTemplate from './Templates/PaginatedTemplate';
-import Chronic from './Templates/Chronic';
-import Chronicles from './Templates/Chronicles';
-import Tokyo from './Templates/Tokyo';
-import Stockholm from './Templates/Stockholm'
-import Milano from './Templates/Milano';
-import Vienna from './Templates/Vienna';
-import Kyoto from './Templates/Kyoto';
-import Berlin from './Templates/Berlin';
-import Fancy from './Templates/Fancy';
-import MountFuji from './Templates/MountFuji';
-import Asthetic from './Templates/Asthetic';
-import Minimal from './Templates/Minimal';
-import Phoenix from './Templates/Phoen';
-import Philips from './Templates/Philips';
-import Crisp from './Templates/Crisp';
-import Clean from './Templates/Clean';
-import Parallel from './Templates/Parallel';
-import Zinc from './Templates/Zinc';
-import Nexus from './Templates/Nexus';
-import Star from './Templates/Star';
-import Nova from './Templates/Nova';
-import Santino from './Templates/Santino';
-import TwoColumn from './Templates/TwoColumn';
-import Timeline from './Templates/Timeline';
-import Tempo from './Templates/Tempo';
-import Sample from './Templates/Sample';
-
-
-
-
-
-
+import Modern from './templates/Modern';
+import Professional from './templates/Professional';
+import Creative from './templates/Creative';
+import Elegant from './templates/Elegant';
+import Classic from './templates/Classic';
+import Best from './templates/Best';
+import Traditional from './templates/Traditional';
+import Formal from './templates/Formal';
+import Toronto from './templates/Toronto';
+import Functional from './templates/Functional';
+import Simple from './templates/Simple';
+import Stylish from './templates/Stylish';
+import Iconic from './templates/Iconic';
 
 export default function ResumePreview({ resumeData, selectedTemplate }) {
   const resumeRef = useRef(null);
@@ -222,86 +186,6 @@ const ensureHttps = (url) => {
         return <Stylish resumeData={resumeData} />;
       case 'iconic':
         return <Iconic resumeData={resumeData} />;
-      case 'revelent':
-        return <Revelent resumeData={resumeData} />;
-      case 'composit':
-        return <Composit resumeData={resumeData} />;
-      case 'chronological':
-        return <Chronological resumeData={resumeData} />;
-      case 'federal':
-        return <Federal resumeData={resumeData} />;
-      case 'pheonix':
-        return <Pheonix resumeData={resumeData} />;
-      case 'cool':
-        return <Cool resumeData={resumeData} />;
-      // case 'horizon':
-      //   return <Horizon resumeData={resumeData} />;
-      case 'gullible':
-        return <Gullible resumeData={resumeData} />;
-      case 'deligant':
-        return <Deligant resumeData={resumeData} />;
-      case 'executive':
-        return <Executive resumeData={resumeData} />;
-      case 'premium':
-        return <Premium resumeData={resumeData} />;
-      case 'everest':
-        return <Everest resumeData={resumeData} />;
-      case 'paginated':
-        return <PaginatedTemplate resumeData={resumeData} />;
-        case 'chronic':
-        return <Chronic resumeData={resumeData} />;
-        case 'chronicles':
-        return <Chronicles resumeData={resumeData} />;
-        case 'tokyo':
-        return <Tokyo resumeData={resumeData} />;
-        case 'stockholm':
-        return <Stockholm resumeData={resumeData} />;
-        case 'milano':
-        return <Milano resumeData={resumeData} />;
-        case 'vienna':
-        return <Vienna resumeData={resumeData} />;
-        case 'kyoto':
-        return <Kyoto resumeData={resumeData} />;
-        case 'berlin':
-        return <Berlin resumeData={resumeData} />;
-        case 'fancy':
-        return <Fancy resumeData={resumeData} />;
-        case 'mountfuji':
-        return <MountFuji resumeData={resumeData} />;
-        case 'asthetic':
-        return <Asthetic resumeData={resumeData} />;
-        case 'minimal':
-        return <Minimal resumeData={resumeData} />;
-        case 'phoenix':
-        return <Phoenix resumeData={resumeData} />;
-        case 'philips':
-        return <Philips resumeData={resumeData} />;
-        case 'crisp':
-        return <Crisp resumeData={resumeData} />;
-        case 'clean':
-        return <Clean resumeData={resumeData} />;
-        case 'parallel':
-        return <Parallel resumeData={resumeData} />;
-        case 'zinc':
-        return <Zinc resumeData={resumeData} />;
-        case 'nexus':
-        return <Nexus resumeData={resumeData} />;
-        case 'star':
-        return <Star resumeData={resumeData} />;
-        case 'nova':
-        return <Nova resumeData={resumeData} />;
-        case 'santino':
-        return <Santino resumeData={resumeData} />;
-        case 'twocolumn':
-        return <TwoColumn resumeData={resumeData} />;
-        case 'timeline':
-        return <Timeline resumeData={resumeData} />;
-        case 'tempo':
-        return <Tempo resumeData={resumeData} />;
-        case 'sample':
-        return <Sample resumeData={resumeData} />;
-       
-     
       default:
         return <Modern resumeData={resumeData} />;
     }

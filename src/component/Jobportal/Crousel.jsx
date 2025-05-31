@@ -1,6 +1,6 @@
-
 "use client";
 import React, { useState } from "react";
+import ScrollReveal from "../ScrollReveal";
 
 const JobPortalTestimonials = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(2);
@@ -57,42 +57,49 @@ const JobPortalTestimonials = () => {
               </div>
 
               <div className="relative z-10 text-center lg:text-left">
-                <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                  <span className="block">What Our</span>
-                  <span className="block">Employers</span>
-                  <span className="block text-red-200">Are Saying!</span>
-                </h1>
+                <ScrollReveal animation="slideUp" duration={1000} delay={200}>
+                  <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                    <span className="block">What Our</span>
+                    <span className="block">Employers</span>
+                    <span className="block text-red-200">Are Saying!</span>
+                  </h1>
+                </ScrollReveal>
 
+                <ScrollReveal animation="slideDown" duration={1000} delay={400}>
                 <div className="hidden lg:block mt-12">
                   <p className="text-red-100 text-lg mb-8">
                     Trusted by thousands of companies worldwide
                   </p>
                 </div>
+                </ScrollReveal>
               </div>
 
               {/* Navigation Arrows - Desktop */}
               <div className="absolute bottom-8 right-8 hidden lg:flex space-x-1">
-                <button
-                  onClick={prevTestimonial}
-                    className="bg-white bg-opacity-20 hover:bg-opacity-30 text-red-500 rounded-l-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                <ScrollReveal animation="fadeSlideLeft" duration={800} delay={300}>
+                  <button
+                    onClick={prevTestimonial}
+                    className="bg-white bg-opacity-20 hover:bg-opacity-30 text-red-600 rounded-l-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
+                    </svg>
+                  </button>
+                </ScrollReveal>
+                <ScrollReveal animation="fadeSlideRight" duration={800} delay={300}>
                 <button
                   onClick={nextTestimonial}
-                    className="bg-white bg-opacity-20 hover:bg-opacity-30 text-red-500 rounded-r-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
+                  className="bg-white bg-opacity-20 hover:bg-opacity-30 text-red-600 rounded-r-full w-12 h-12 flex items-center justify-center transition-all duration-200 hover:scale-105"
                 >
                   <svg
                     className="w-5 h-5"
@@ -108,6 +115,7 @@ const JobPortalTestimonials = () => {
                     />
                   </svg>
                 </button>
+                </ScrollReveal>
               </div>
             </div>
 
@@ -126,34 +134,51 @@ const JobPortalTestimonials = () => {
 
               {/* Testimonial Content */}
               <div className="flex-1 mt-12 lg:mt-0">
-                {testimonials.map((testimonial) => (
+                {testimonials.map((testimonial, index) => (
                   <div
                     key={testimonial.id}
                     className={`${
                       activeTestimonial === testimonial.id ? "block" : "hidden"
                     } transition-all duration-500 ease-in-out`}
                   >
-                    <blockquote className="text-xl lg:text-2xl text-gray-800 font-medium leading-relaxed italic mb-8">
-                      "{testimonial.content}"
-                    </blockquote>
+                    {activeTestimonial === testimonial.id && (
+                      <ScrollReveal
+                        animation="fadeSlideUp"
+                        duration={600}
+                        delay={index * 100}
+                        easing="gentle"
+                      >
+                        <blockquote className="text-xl lg:text-2xl text-gray-800 font-medium leading-relaxed italic mb-8">
+                          "{testimonial.content}"
+                        </blockquote>
+                      </ScrollReveal>
+                    )}
                   </div>
                 ))}
               </div>
 
               {/* Avatar Navigation */}
               <div className="flex justify-center space-x-4 mb-8">
-                {testimonials.map((testimonial) => (
-                  <button
+                {testimonials.map((testimonial, index) => (
+                  <ScrollReveal
                     key={testimonial.id}
-                    onClick={() => setActiveTestimonial(testimonial.id)}
-                    className={`${
-                      activeTestimonial === testimonial.id
-                        ? "w-16 h-16 bg-red-600 text-white opacity-100 scale-110"
-                        : "w-12 h-12 bg-gray-300 text-gray-600 opacity-75 hover:opacity-100"
-                    } rounded-full font-bold text-sm transition-all duration-300 hover:scale-105 shadow-lg flex items-center justify-center`}
+                    animation="slightUp"
+                    duration={500}
+                    delay={100}
+                    stagger={100}
+                    index={index}
                   >
-                    {testimonial.initials}
-                  </button>
+                    <button
+                      onClick={() => setActiveTestimonial(testimonial.id)}
+                      className={`${
+                        activeTestimonial === testimonial.id
+                          ? "w-16 h-16 bg-red-600 text-white opacity-100 scale-110"
+                          : "w-12 h-12 bg-gray-300 text-gray-600 opacity-75 hover:opacity-100"
+                      } rounded-full font-bold text-sm transition-all duration-300 hover:scale-105 shadow-lg flex items-center justify-center`}
+                    >
+                      {testimonial.initials}
+                    </button>
+                  </ScrollReveal>
                 ))}
               </div>
 
@@ -178,6 +203,7 @@ const JobPortalTestimonials = () => {
 
               {/* Mobile Navigation */}
               <div className="flex justify-center space-x-2 mt-8 lg:hidden">
+                <ScrollReveal animation="fadeSlideLeft" duration={800} delay={300}>
                 <button
                   onClick={prevTestimonial}
                   className="bg-red-600 hover:bg-red-700 text-white rounded-full w-12 h-12 flex items-center justify-center transition-colors duration-200"
@@ -196,6 +222,8 @@ const JobPortalTestimonials = () => {
                     />
                   </svg>
                 </button>
+                </ScrollReveal>
+                <ScrollReveal animation="fadeSlideRight" duration={800} delay={300}>
                 <button
                   onClick={nextTestimonial}
                   className="bg-red-600 hover:bg-red-700 text-white rounded-full w-12 h-12 flex items-center justify-center transition-colors duration-200"
@@ -214,6 +242,7 @@ const JobPortalTestimonials = () => {
                     />
                   </svg>
                 </button>
+                </ScrollReveal>
               </div>
             </div>
           </div>
@@ -225,40 +254,27 @@ const JobPortalTestimonials = () => {
             Trusted by leading companies worldwide
           </p>
           <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 opacity-70">
-            {/* Company Logo 1 */}
-            <img
-              src="/job/flipkart-Logo.wine.svg"
-              alt="Google"
-              className="h-8 w-auto object-contain "
-            />
-
-            {/* Company Logo 2 */}
-            <img
-              src="/job/Microsoft-Logo.wine.svg"
-              alt="Microsoft"
-              className="h-8 w-auto object-contain "
-            />
-
-            {/* Company Logo 3 */}
-            <img
-              src="/job/amazon_(company)-Logo.wine.svg"
-              alt="Amazon"
-              className="h-8 w-auto object-contain "
-            />
-
-            {/* Company Logo 4 */}
-            <img
-              src="/job/Airbnb-Logo.wine.svg"
-              alt="Apple"
-              className="h-8 w-auto object-contain "
-            />
-
-            {/* Company Logo 5 */}
-            <img
-              src="/job/Paytm-logo.wine.svg"
-              alt="Facebook"
-              className="h-8 w-auto object-contain "
-            />
+            {[
+              { src: "/job/flipkart-Logo.wine.svg", alt: "Flipkart" },
+              { src: "/job/Microsoft-Logo.wine.svg", alt: "Microsoft" },
+              { src: "/job/amazon_(company)-Logo.wine.svg", alt: "Amazon" },
+              { src: "/job/Airbnb-Logo.wine.svg", alt: "Airbnb" },
+              { src: "/job/Paytm-logo.wine.svg", alt: "Paytm" },
+            ].map((logo, index) => (
+              <ScrollReveal
+                key={logo.alt}
+                animation="fadeSlideUp"
+                duration={500}
+                delay={index * 150}  // stagger delay for each logo
+                easing="gentle"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-8 w-auto object-contain"
+                />
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </div>

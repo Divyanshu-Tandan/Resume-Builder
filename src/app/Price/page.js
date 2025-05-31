@@ -78,13 +78,13 @@ export default function PricingPage() {
               PRO QUARTERLY PLAN
             </div>
             <p className="text-4xl font-bold mb-1 text-black">
-              ₹663<sup className="text-base">/mo</sup>
+              ₹199<sup className="text-base">/mo</sup>
             </p>
             <p className="text-sm text-gray-600 mb-1">
-              ₹1990 billed every 3 months
+              ₹500 billed every 3 months
             </p>
             <p className="text-sm text-red-700 font-medium mb-4">
-              ₹2667.00 - SAVE 25.38%
+              ₹2400.00 - SAVE 25.38%
             </p>
             <ul className="text-sm space-y-2 mb-6 text-black">
               <li>✓ 150 resumes and cover letters</li>
