@@ -131,7 +131,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="relative bg-white shadow-sm z-50">
+    <header className="fixed top-0 w-full bg-white shadow-sm z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -324,7 +324,7 @@ export default function Navbar() {
                     )}
 
                     {item === "coverLetter" && (
-                      <div className="flex flex-col md:flex-row w-full md:w-[800px]">
+                      <div className="flex flex-col md:flex-row w-full md:w-[50vw] xl:w-[800px]">
                         {/* First column */}
                         <div className="w-full md:w-1/3 p-5 border-b md:border-b-0 md:border-r border-gray-100 space-y-6">
                           {/* Builder */}
