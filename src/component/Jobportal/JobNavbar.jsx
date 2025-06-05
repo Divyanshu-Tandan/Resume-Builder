@@ -16,7 +16,7 @@ export default function JobNavBar() {
   };
 
   return (
-    <header className="relative bg-white shadow-sm z-50">
+  <header className="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
   <div className="container mx-auto px-4">
     <div className="flex items-center justify-between h-16">
       {/* Logo */}
