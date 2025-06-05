@@ -45,7 +45,7 @@ export default function PricingPage() {
 
   const current = testimonials[currentTestimonial];
   return (
-    <div className="bg-gradient-to-b from-red-50 via-white to-white">
+    <div className="bg-gradient-to-b from-red-50 via-white to-white mt-16 overflow-x-hidden">
       <Navbar />
       <div className="min-h-screen bg-gradient-to-b from-red-50 via-white to-white px-4 py-10 text-gray-800">
         <h1 className="text-4xl font-bold text-center mb-6 bg-gradient-to-r from-red-600 via-black to-red-600 text-transparent bg-clip-text">

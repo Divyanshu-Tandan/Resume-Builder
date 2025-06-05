@@ -7,7 +7,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>
+    <div className='h-auto w-full overflow-x-hidden mt-16'>
       <div>
         <ResumeBuilderHero />
       </div>
@@ -28,4 +28,4 @@ const page = () => {
   );
 }
 
-export default page
+export default page;

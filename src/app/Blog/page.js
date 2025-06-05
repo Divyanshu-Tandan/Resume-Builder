@@ -7,7 +7,7 @@ const page = () => {
   return (
     <div>
     <Navbar/>
-    <div className='h-auto w-full p-5'>
+    <div className='h-auto w-full p-5 mt-20'>
         {/* Hero Section with Staggered Animation */}
         <ScrollReveal 
             animation="fadeSlideUp" 
